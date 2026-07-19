@@ -4,7 +4,7 @@
 
 import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Sun, Moon, Search, Bell, X } from "lucide-react";
+import { Sun, Moon, Search, Bell, X, Menu } from "lucide-react";
 import { useDashboard } from "@/lib/context/DashboardContext";
 import {
   products,
@@ -78,8 +78,15 @@ const navTargets: { label: string; route: string }[] = [
 
 export default function Topbar() {
   const router = useRouter();
-  const { darkMode, toggleDarkMode, sellers, buyers, carriers, verifications } =
-    useDashboard();
+  const {
+    darkMode,
+    toggleDarkMode,
+    toggleMobileMenu,
+    sellers,
+    buyers,
+    carriers,
+    verifications,
+  } = useDashboard();
 
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
@@ -143,11 +150,21 @@ export default function Topbar() {
 
   return (
     <header
-      className={`sticky top-0 z-40 flex items-center justify-between gap-4 px-6 py-3 border-b backdrop-blur-sm ${
+      className={`sticky top-0 z-30 flex items-center justify-between gap-3 px-4 md:px-6 py-3 border-b backdrop-blur-sm ${
         darkMode ? "bg-slate-950/80 border-slate-800" : "bg-white/80 border-slate-100"
       }`}
     >
-      <div className="relative w-full max-w-sm hidden sm:block">
+      {/* Botón hamburguesa, solo visible en móvil */}
+      <button
+        onClick={toggleMobileMenu}
+        className={`md:hidden shrink-0 p-2 rounded-lg border ${
+          darkMode ? "border-slate-800 text-slate-300" : "border-slate-200 text-slate-600"
+        }`}
+      >
+        <Menu className="h-4 w-4" />
+      </button>
+
+      <div className="relative w-full max-w-sm">
         <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 z-10" />
         <input
           type="text"
@@ -201,7 +218,7 @@ export default function Topbar() {
         )}
       </div>
 
-      <div className="flex items-center gap-2 ml-auto">
+      <div className="flex items-center gap-2 ml-auto shrink-0">
         <button
           className={`p-2 rounded-lg border ${
             darkMode ? "border-slate-800 text-slate-300" : "border-slate-200 text-slate-600"
