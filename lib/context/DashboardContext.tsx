@@ -1,9 +1,8 @@
 "use client";
 
-// lib/context/DashboardContext.tsx
-// Propiedad: Persona A (líder)
-// Estado global "mock" del panel: modo oscuro, notificaciones, y las
-// entidades que se comparten entre módulos (usuarios y verificaciones).
+// lib/context/DashboardContext.tsx — Propiedad: Persona A (líder)
+// Estado global "mock" del panel: modo oscuro, menú móvil, notificaciones,
+// y las entidades que se comparten entre módulos (usuarios y verificaciones).
 
 import React, { createContext, useContext, useState, useCallback } from "react";
 import {
@@ -33,6 +32,10 @@ interface DashboardContextValue {
   notifications: Notification[];
   showNotification: (text: string, type: NotificationType) => void;
 
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
+  toggleMobileMenu: () => void;
+
   sellers: Seller[];
   setSellers: (s: Seller[]) => void;
   buyers: Buyer[];
@@ -49,6 +52,7 @@ const DashboardContext = createContext<DashboardContextValue | null>(null);
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [darkMode, setDarkMode] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [sellers, setSellers] = useState<Seller[]>(initialSellers);
   const [buyers, setBuyers] = useState<Buyer[]>(initialBuyers);
@@ -57,6 +61,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [verifications, setVerifications] = useState<VerificationRequest[]>(initialVerifications);
 
   const toggleDarkMode = useCallback(() => setDarkMode((d) => !d), []);
+  const toggleMobileMenu = useCallback(() => setMobileMenuOpen((o) => !o), []);
 
   const showNotification = useCallback((text: string, type: NotificationType) => {
     const id = Date.now();
@@ -73,6 +78,9 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
         toggleDarkMode,
         notifications,
         showNotification,
+        mobileMenuOpen,
+        setMobileMenuOpen,
+        toggleMobileMenu,
         sellers,
         setSellers,
         buyers,
