@@ -92,7 +92,7 @@ export default function DashboardTab({
       }`}>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Panel Administrativo CoraMarket</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Panel Administrativo RantiAdmin</h1>
             <p className={`mt-1 text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
               Monitoreo general de seguridad, moderación y crecimiento de la plataforma en tiempo real.
             </p>
@@ -235,7 +235,7 @@ export default function DashboardTab({
             <div>
               <h4 className="font-semibold text-lg">Crecimiento Comercial y Tráfico</h4>
               <p className={`text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-                Volumen comercializado e ingresos mensuales en CoraMarket
+                Volumen comercializado e ingresos mensuales en Ranti
               </p>
             </div>
             {/* Filter Toggle */}
