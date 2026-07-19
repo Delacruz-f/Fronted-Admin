@@ -4,8 +4,8 @@ import "./globals.css";
 // app/layout.tsx — Propiedad: Persona A (líder)
 
 export const metadata: Metadata = {
-  title: "CoraMarket Admin",
-  description: "Panel de administración de CoraMarket",
+  title: "Ranti Admin",
+  description: "Panel de administración de Ranti",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
