@@ -4,7 +4,11 @@ import "./globals.css";
 // app/layout.tsx — Propiedad: Persona A (líder)
 
 export const metadata: Metadata = {
+<<<<<<< HEAD
 title: "Ranti Admin",
+=======
+  title: "Ranti Admin",
+>>>>>>> origin/develop
   description: "Panel de administración de Ranti",
 };
 

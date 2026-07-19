@@ -93,12 +93,11 @@ export default function ChatsTab({
     // Let's look for Juan Ignacio Pérez as a default since he is the offender in ch1, or Roberto in ch2
     const offenderName = chat.id === "ch1" ? "Juan Ignacio Pérez" : "Roberto Tapia (Muebles Sur)";
 
-    if (chat.id === "ch1") {
-      // offender is Juan Ignacio (Buyer)
+   if (chat.id === "ch1") {
+      // offender is Juan Ignacio (Buyer) — Buyer no tiene estado "Bloqueado", solo "Suspendido"
       const buyerOffender = buyers.find(b => b.name === offenderName);
       if (buyerOffender) {
-        const nextStatus = actionType.includes("Bloqueo") ? "Bloqueado" as const : "Suspendido" as const;
-        onUpdateBuyers(buyers.map(b => b.id === buyerOffender.id ? { ...b, status: nextStatus } : b));
+        onUpdateBuyers(buyers.map(b => b.id === buyerOffender.id ? { ...b, status: "Suspendido" as const } : b));
       }
     } else {
       // offender is Roberto (Seller)

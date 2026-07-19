@@ -7,7 +7,6 @@ import {
   Users, ShoppingBag, TrendingUp, AlertTriangle, ShieldAlert, DollarSign, 
   Package, Truck, ArrowUpRight, CheckCircle2, ChevronRight, Clock
 } from "lucide-react";
-import { motion } from "motion/react";
 
 interface DashboardTabProps {
   darkMode: boolean;
@@ -88,8 +87,8 @@ export default function DashboardTab({
       {/* Welcome Hero / Quick Overview */}
       <div className={`p-6 rounded-2xl border transition-all ${
         darkMode 
-          ? "bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/20 border-slate-800" 
-          : "bg-gradient-to-r from-white via-white to-indigo-50/30 border-slate-100"
+       ? "bg-slate-900 border-slate-800"
+    : "bg-white border-slate-100"
       }`}>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
