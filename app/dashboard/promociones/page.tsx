@@ -1,6 +1,5 @@
 "use client";
 
-// app/dashboard/promociones/page.tsx — Propiedad: Persona C
 
 import React, { useState } from "react";
 import PromotionsTab from "@/components/promotions/PromotionsTab";
