@@ -7,7 +7,6 @@ import {
   Users, ShoppingBag, TrendingUp, AlertTriangle, ShieldAlert, DollarSign, 
   Package, Truck, ArrowUpRight, CheckCircle2, ChevronRight, Clock
 } from "lucide-react";
-import { motion } from "motion/react";
 
 interface DashboardTabProps {
   darkMode: boolean;
