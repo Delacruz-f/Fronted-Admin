@@ -67,7 +67,7 @@ export default function ConfigTab({
             <span>COMISIONES Y COSTOS DE PLATAFORMA</span>
           </h4>
           <p className={`text-xs mt-0.5 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-            Configura el porcentaje de comisión que CoraMarket retiene en cada compra y los valores de suscripción a patrocinio.
+            Configura el porcentaje de comisión que Ranti retiene en cada compra y los valores de suscripción a patrocinio.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-3 border-t border-slate-150 dark:border-slate-850">

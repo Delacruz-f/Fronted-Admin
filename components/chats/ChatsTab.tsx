@@ -73,7 +73,7 @@ export default function ChatsTab({
 
       setAiEvaluation(data);
       setActiveSanctionMessage(data.generatedWarning);
-      onShowNotification("Análisis de lenguaje y fraude completado por CoraAI.", "success");
+      onShowNotification("Análisis de lenguaje y fraude completado por RantiAI.", "success");
     } catch (err: any) {
       console.error(err);
       onShowNotification("No se pudo auditar el chat: " + err.message, "error");
@@ -108,7 +108,7 @@ export default function ChatsTab({
       }
     }
 
-    onShowNotification(`Sanción aplicada: Cuenta del infractor de CoraMarket actualizada a ${actionType}.`, "success");
+    onShowNotification(`Sanción aplicada: Cuenta del infractor de Ranti actualizada a ${actionType}.`, "success");
     
     // Select next pending
     const nextPending = updatedChats.find(c => c.status === "Pendiente");
@@ -279,7 +279,7 @@ export default function ChatsTab({
                 <div className="flex items-center justify-between border-b border-slate-150 dark:border-slate-850 pb-2">
                   <div className="flex items-center gap-1.5 text-indigo-400 font-bold text-xs">
                     <Sparkles className="h-4 w-4 animate-pulse text-amber-500" />
-                    <span>DICTAMEN DE INTELIGENCIA DE SEGURIDAD CORAAI</span>
+                    <span>DICTAMEN DE INTELIGENCIA DE SEGURIDAD RANTIAI</span>
                   </div>
                   <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                     aiEvaluation.riskLevel === "Alto" 

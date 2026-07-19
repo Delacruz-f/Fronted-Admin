@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         reason: "Se detectó lenguaje agresivo reiterado en la conversación reportada.",
         recommendedAction: "Advertencia",
         generatedWarning:
-          "Tu cuenta ha recibido una advertencia por incumplimiento de las normas de convivencia de CoraMarket.",
+          "Tu cuenta ha recibido una advertencia por incumplimiento de las normas de convivencia de Ranti.",
       });
 
     case "dispute_resolve":
