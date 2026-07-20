@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { 
   Search, SlidersHorizontal, UserPlus, Shield, MoreVertical, 
   Trash2, AlertTriangle, CheckCircle, Ban, Star, Mail, Phone,
-  FileText, Truck, MapPin, KeyRound, ShieldAlert
+  FileText, Truck, MapPin, KeyRound, ShieldAlert, Pencil
 } from "lucide-react";
 import { Seller, Buyer, Carrier, AdminUser } from "@/lib/mockData";
 
@@ -39,8 +39,9 @@ export default function UsersTab({
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("todos");
 
-  // Admin Create states
+  // Admin Create / Edit states
   const [showAddAdmin, setShowAddAdmin] = useState(false);
+  const [editingAdminId, setEditingAdminId] = useState<string | null>(null);
   const [newAdminName, setNewAdminName] = useState("");
   const [newAdminEmail, setNewAdminEmail] = useState("");
   const [newAdminRole, setNewAdminRole] = useState<"Super Administrador" | "Administrador General" | "Moderador" | "Soporte">("Moderador");
@@ -83,24 +84,62 @@ export default function UsersTab({
     onShowNotification(`Estado del transportista actualizado a: ${newStatus}`, "success");
   };
 
-  const handleAddAdmin = (e: React.FormEvent) => {
+  // Abre el formulario limpio, en modo "crear"
+  const openCreateAdmin = () => {
+    setEditingAdminId(null);
+    setNewAdminName("");
+    setNewAdminEmail("");
+    setNewAdminRole("Moderador");
+    setShowAddAdmin(true);
+  };
+
+  // Abre el formulario precargado con los datos del administrador, en modo "editar"
+  const openEditAdmin = (admin: AdminUser) => {
+    setEditingAdminId(admin.id);
+    setNewAdminName(admin.name);
+    setNewAdminEmail(admin.email);
+    setNewAdminRole(admin.role);
+    setShowAddAdmin(true);
+  };
+
+  const closeAdminForm = () => {
+    setShowAddAdmin(false);
+    setEditingAdminId(null);
+    setNewAdminName("");
+    setNewAdminEmail("");
+    setNewAdminRole("Moderador");
+  };
+
+  const handleSubmitAdmin = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newAdminName || !newAdminEmail) {
       onShowNotification("Por favor completa el nombre y el correo", "error");
       return;
     }
-    const newAdmin: AdminUser = {
-      id: "a_" + Date.now(),
-      name: newAdminName,
-      email: newAdminEmail,
-      role: newAdminRole,
-      status: "Activo"
-    };
-    onUpdateAdmins([...admins, newAdmin]);
-    onShowNotification(`Administrador '${newAdminName}' creado exitosamente con rol de ${newAdminRole}.`, "success");
-    setNewAdminName("");
-    setNewAdminEmail("");
-    setShowAddAdmin(false);
+
+    if (editingAdminId) {
+      // Modo edición: actualiza el administrador existente
+      const updated = admins.map(a =>
+        a.id === editingAdminId
+          ? { ...a, name: newAdminName, email: newAdminEmail, role: newAdminRole }
+          : a
+      );
+      onUpdateAdmins(updated);
+      onShowNotification(`Administrador '${newAdminName}' actualizado correctamente.`, "success");
+    } else {
+      // Modo creación
+      const newAdmin: AdminUser = {
+        id: "a_" + Date.now(),
+        name: newAdminName,
+        email: newAdminEmail,
+        role: newAdminRole,
+        status: "Activo"
+      };
+      onUpdateAdmins([...admins, newAdmin]);
+      onShowNotification(`Administrador '${newAdminName}' creado exitosamente con rol de ${newAdminRole}.`, "success");
+    }
+
+    closeAdminForm();
   };
 
   const toggleAdminStatus = (id: string) => {
@@ -139,7 +178,7 @@ export default function UsersTab({
 
         {subTab === "administradores" && (
           <button
-            onClick={() => setShowAddAdmin(!showAddAdmin)}
+            onClick={() => (showAddAdmin ? closeAdminForm() : openCreateAdmin())}
             className="px-3.5 py-1.5 text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg flex items-center gap-1.5 transition-all self-end"
           >
             <UserPlus className="h-3.5 w-3.5" />
@@ -148,14 +187,14 @@ export default function UsersTab({
         )}
       </div>
 
-      {/* Add Admin Collapse Area */}
+      {/* Add / Edit Admin Collapse Area */}
       {showAddAdmin && subTab === "administradores" && (
-        <form onSubmit={handleAddAdmin} className={`p-4 rounded-xl border space-y-4 transition-all ${
+        <form onSubmit={handleSubmitAdmin} className={`p-4 rounded-xl border space-y-4 transition-all ${
           darkMode ? "bg-slate-950 border-slate-800" : "bg-slate-50 border-slate-200"
         }`}>
           <div className="flex items-center gap-1.5 font-semibold text-xs text-indigo-500">
             <KeyRound className="h-4 w-4" />
-            <span>CREAR NUEVA CUENTA DE ADMINISTRACIÓN</span>
+            <span>{editingAdminId ? "EDITAR CUENTA DE ADMINISTRACIÓN" : "CREAR NUEVA CUENTA DE ADMINISTRACIÓN"}</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -207,7 +246,7 @@ export default function UsersTab({
           <div className="flex justify-end gap-2">
             <button
               type="button"
-              onClick={() => setShowAddAdmin(false)}
+              onClick={closeAdminForm}
               className={`px-3 py-1.5 text-xs rounded-lg border ${
                 darkMode ? "border-slate-800 hover:bg-slate-900 text-slate-400" : "border-slate-200 hover:bg-slate-100 text-slate-600"
               }`}
@@ -218,7 +257,7 @@ export default function UsersTab({
               type="submit"
               className="px-4 py-1.5 text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg shadow-sm"
             >
-              Registrar Administrador
+              {editingAdminId ? "Guardar Cambios" : "Registrar Administrador"}
             </button>
           </div>
         </form>
@@ -581,20 +620,29 @@ export default function UsersTab({
                       </span>
                     </td>
                     <td className="p-4 text-right">
-                      {admin.id !== "a1" ? (
-                        <button 
-                          onClick={() => toggleAdminStatus(admin.id)}
-                          className={`text-xs px-2.5 py-1 rounded-lg border font-semibold hover:opacity-85 ${
-                            admin.status === "Activo" 
-                              ? "bg-rose-500/10 border-rose-500/20 text-rose-500" 
-                              : "bg-emerald-500/10 border-emerald-500/20 text-emerald-500"
-                          }`}
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          onClick={() => openEditAdmin(admin)}
+                          title="Editar Administrador"
+                          className="p-1 rounded bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 transition-colors"
                         >
-                          {admin.status === "Activo" ? "Desactivar" : "Activar"}
+                          <Pencil className="h-3.5 w-3.5" />
                         </button>
-                      ) : (
-                        <span className="text-slate-400 italic text-[10px]">Titular Principal</span>
-                      )}
+                        {admin.id !== "a1" ? (
+                          <button 
+                            onClick={() => toggleAdminStatus(admin.id)}
+                            className={`text-xs px-2.5 py-1 rounded-lg border font-semibold hover:opacity-85 ${
+                              admin.status === "Activo" 
+                                ? "bg-rose-500/10 border-rose-500/20 text-rose-500" 
+                                : "bg-emerald-500/10 border-emerald-500/20 text-emerald-500"
+                            }`}
+                          >
+                            {admin.status === "Activo" ? "Desactivar" : "Activar"}
+                          </button>
+                        ) : (
+                          <span className="text-slate-400 italic text-[10px]">Titular Principal</span>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}
