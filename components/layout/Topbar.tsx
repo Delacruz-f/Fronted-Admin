@@ -67,12 +67,14 @@ const navTargets: { label: string; route: string }[] = [
   { label: "Panel", route: "/dashboard" },
   { label: "Usuarios", route: "/dashboard/usuarios" },
   { label: "Verificaciones", route: "/dashboard/verificaciones" },
+  { label: "Administradores", route: "/dashboard/administradores" },
   { label: "Productos", route: "/dashboard/productos" },
   { label: "Pedidos", route: "/dashboard/pedidos" },
   { label: "Promociones", route: "/dashboard/promociones" },
   { label: "Transportistas", route: "/dashboard/transportistas" },
   { label: "Chats y Moderación", route: "/dashboard/chats" },
   { label: "Soporte", route: "/dashboard/soporte" },
+  { label: "Reportes", route: "/dashboard/reportes" },
   { label: "Configuración", route: "/dashboard/configuracion" },
 ];
 
@@ -86,6 +88,7 @@ export default function Topbar() {
     buyers,
     carriers,
     verifications,
+    admins,
   } = useDashboard();
 
   const [query, setQuery] = useState("");
@@ -111,6 +114,9 @@ export default function Topbar() {
     verifications.forEach((v) =>
       items.push({ id: `v-${v.id}`, label: v.userName, meta: `Verificación KYC · ${v.status}`, route: "/dashboard/verificaciones" })
     );
+    admins.forEach((a) =>
+      items.push({ id: `adm-${a.id}`, label: a.name, meta: `Administrador · ${a.role}`, route: "/dashboard/administradores" })
+    );
     products.forEach((p) =>
       items.push({ id: `p-${p.id}`, label: p.name, meta: `Producto · ${p.sellerName}`, route: "/dashboard/productos" })
     );
@@ -133,7 +139,7 @@ export default function Topbar() {
     );
 
     return items;
-  }, [sellers, buyers, carriers, verifications]);
+  }, [sellers, buyers, carriers, verifications, admins]);
 
   const results = useMemo<SearchResult[]>(() => {
     if (!query.trim()) return [];

@@ -2,7 +2,8 @@
 
 // lib/context/DashboardContext.tsx — Propiedad: Persona A (líder)
 // Estado global "mock" del panel: modo oscuro, menú móvil, notificaciones,
-// y las entidades que se comparten entre módulos (usuarios y verificaciones).
+// usuario con sesión iniciada (ejemplo), y las entidades que se comparten
+// entre módulos (usuarios y verificaciones).
 
 import React, { createContext, useContext, useState, useCallback } from "react";
 import {
@@ -26,6 +27,11 @@ interface Notification {
   type: NotificationType;
 }
 
+interface CurrentUser {
+  name: string;
+  role: string;
+}
+
 interface DashboardContextValue {
   darkMode: boolean;
   toggleDarkMode: () => void;
@@ -35,6 +41,10 @@ interface DashboardContextValue {
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
   toggleMobileMenu: () => void;
+
+  // Usuario de ejemplo con sesión iniciada. Cuando exista autenticación real,
+  // esto se reemplaza por los datos que devuelva el login.
+  currentUser: CurrentUser;
 
   sellers: Seller[];
   setSellers: (s: Seller[]) => void;
@@ -60,6 +70,12 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [admins, setAdmins] = useState<AdminUser[]>(initialAdmins);
   const [verifications, setVerifications] = useState<VerificationRequest[]>(initialVerifications);
 
+  // Ejemplo — en el futuro esto vendrá del backend de autenticación real.
+  const [currentUser] = useState<CurrentUser>({
+    name: "Ana Fernández",
+    role: "Super Administrador",
+  });
+
   const toggleDarkMode = useCallback(() => setDarkMode((d) => !d), []);
   const toggleMobileMenu = useCallback(() => setMobileMenuOpen((o) => !o), []);
 
@@ -81,6 +97,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
         mobileMenuOpen,
         setMobileMenuOpen,
         toggleMobileMenu,
+        currentUser,
         sellers,
         setSellers,
         buyers,
