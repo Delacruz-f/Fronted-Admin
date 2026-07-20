@@ -4,20 +4,23 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
   ShieldCheck,
+  KeyRound,
   Package,
   ShoppingBag,
   Sparkles,
   Truck,
   MessageSquare,
   HelpCircle,
+  BarChart3,
   Settings,
   Store,
   X,
+  LogOut,
 } from "lucide-react";
 import { useDashboard } from "@/lib/context/DashboardContext";
 
@@ -25,18 +28,35 @@ const navItems = [
   { href: "/dashboard", label: "Panel", icon: LayoutDashboard },
   { href: "/dashboard/usuarios", label: "Usuarios", icon: Users },
   { href: "/dashboard/verificaciones", label: "Verificaciones", icon: ShieldCheck },
+  { href: "/dashboard/administradores", label: "Administradores", icon: KeyRound },
   { href: "/dashboard/productos", label: "Productos", icon: Package },
   { href: "/dashboard/pedidos", label: "Pedidos", icon: ShoppingBag },
   { href: "/dashboard/promociones", label: "Promociones", icon: Sparkles },
   { href: "/dashboard/transportistas", label: "Transportistas", icon: Truck },
   { href: "/dashboard/chats", label: "Chats y Moderación", icon: MessageSquare },
   { href: "/dashboard/soporte", label: "Soporte", icon: HelpCircle },
+  { href: "/dashboard/reportes", label: "Reportes", icon: BarChart3 },
   { href: "/dashboard/configuracion", label: "Configuración", icon: Settings },
 ];
 
+function initialsOf(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase())
+    .join("");
+}
+
 export default function Sidebar() {
   const pathname = usePathname();
-  const { darkMode, mobileMenuOpen, setMobileMenuOpen } = useDashboard();
+  const router = useRouter();
+  const { darkMode, mobileMenuOpen, setMobileMenuOpen, currentUser } = useDashboard();
+
+  const handleLogout = () => {
+    setMobileMenuOpen(false);
+    router.push("/");
+  };
 
   return (
     <>
@@ -58,7 +78,7 @@ export default function Sidebar() {
             <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center">
               <Store className="h-4.5 w-4.5 text-white" />
             </div>
-            <span className="font-bold text-sm tracking-tight">Ranti Admin</span>
+            <span className="font-bold text-sm tracking-tight">CoraMarket Admin</span>
           </div>
 
           {/* Botón cerrar, solo en móvil */}
@@ -95,6 +115,31 @@ export default function Sidebar() {
             );
           })}
         </nav>
+
+        {/* Usuario con sesión iniciada (ejemplo) + botón Salir */}
+        <div className={`p-3 border-t ${darkMode ? "border-slate-800" : "border-slate-100"}`}>
+          <div className="flex items-center gap-2.5 px-2 py-2 rounded-lg">
+            <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center text-[11px] font-bold text-white shrink-0">
+              {initialsOf(currentUser.name)}
+            </div>
+            <div className="min-w-0">
+              <p className={`text-xs font-semibold truncate ${darkMode ? "text-slate-200" : "text-slate-800"}`}>
+                {currentUser.name}
+              </p>
+              <p className="text-[10px] text-slate-400 truncate">{currentUser.role}</p>
+            </div>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className={`mt-1 w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+              darkMode ? "text-rose-400 hover:bg-rose-500/10" : "text-rose-500 hover:bg-rose-50"
+            }`}
+          >
+            <LogOut className="h-4 w-4" />
+            <span>Salir</span>
+          </button>
+        </div>
       </aside>
     </>
   );
