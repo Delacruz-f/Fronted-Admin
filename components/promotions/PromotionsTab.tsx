@@ -87,7 +87,7 @@ export default function PromotionsTab({
               <span>SaaS de Promociones Pagadas</span>
             </h3>
             <p className={`text-xs mt-1 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-              Monetización nativa de CoraMarket: cobros automatizados a vendedores para priorizar visualmente sus productos en listados y portadas.
+              Monetización nativa de Ranti: cobros automatizados a vendedores para priorizar visualmente sus productos en listados y portadas.
             </p>
           </div>
           <button

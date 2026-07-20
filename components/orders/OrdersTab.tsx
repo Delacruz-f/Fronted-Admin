@@ -270,7 +270,7 @@ export default function OrdersTab({
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5 text-rose-500" />
-                <h4 className="font-bold text-base">Tribunal de Mediación CoraMarket ({selectedDisputeOrder.code})</h4>
+                <h4 className="font-bold text-base">Tribunal de Mediación Ranti ({selectedDisputeOrder.code})</h4>
               </div>
               <button 
                 onClick={() => setSelectedDisputeOrder(null)}
