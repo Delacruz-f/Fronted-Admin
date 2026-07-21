@@ -28,7 +28,6 @@ const navItems = [
   { href: "/dashboard", label: "Panel", icon: LayoutDashboard },
   { href: "/dashboard/usuarios", label: "Usuarios", icon: Users },
   { href: "/dashboard/verificaciones", label: "Verificaciones", icon: ShieldCheck },
-  { href: "/dashboard/administradores", label: "Administradores", icon: KeyRound },
   { href: "/dashboard/productos", label: "Productos", icon: Package },
   { href: "/dashboard/pedidos", label: "Pedidos", icon: ShoppingBag },
   { href: "/dashboard/promociones", label: "Promociones", icon: Sparkles },
