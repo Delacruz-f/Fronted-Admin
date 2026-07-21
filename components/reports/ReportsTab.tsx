@@ -112,7 +112,7 @@ export default function ReportsTab({
 
   const handleExportCsv = () => {
     const rows: (string | number)[][] = [
-      ["Reporte General CoraMarket"],
+      ["Reporte General Ranti"],
       ["Periodo", timeFilter],
       [],
       ["Indicador", "Valor"],
@@ -128,7 +128,7 @@ export default function ReportsTab({
       ["Compradores Frecuentes", "Compras", "Gasto Total (USD)"],
       ...topBuyers.map((b) => [b.name, b.purchasesCount, b.totalSpent]),
     ];
-    downloadCsv(`reporte-coramarket-${timeFilter.toLowerCase()}.csv`, rows);
+    downloadCsv(`reporte-Rantimarket-${timeFilter.toLowerCase()}.csv`, rows);
     onShowNotification("Reporte CSV descargado correctamente.", "success");
   };
 
@@ -149,7 +149,7 @@ export default function ReportsTab({
             Reportes y Analítica
           </h3>
           <p className={`text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-            Indicadores consolidados de toda la operación de CoraMarket.
+            Indicadores consolidados de toda la operación de Ranti.
           </p>
         </div>
 

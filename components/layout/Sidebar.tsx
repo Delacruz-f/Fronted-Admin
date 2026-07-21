@@ -77,7 +77,7 @@ export default function Sidebar() {
             <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center">
               <Store className="h-4.5 w-4.5 text-white" />
             </div>
-            <span className="font-bold text-sm tracking-tight">CoraMarket Admin</span>
+            <span className="font-bold text-sm tracking-tight">Ranti Admin</span>
           </div>
 
           {/* Botón cerrar, solo en móvil */}
