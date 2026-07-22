@@ -8,6 +8,7 @@ import {
   Download, FileText, FileSpreadsheet, Sheet, Award, Users,
 } from "lucide-react";
 import { Seller, Buyer, Product, Order, Promotion, ReportedChat } from "@/lib/mockData";
+import { formatCurrency } from "@/lib/format";
 
 interface ReportsTabProps {
   darkMode: boolean;
@@ -116,19 +117,19 @@ export default function ReportsTab({
       ["Periodo", timeFilter],
       [],
       ["Indicador", "Valor"],
-      ["Volumen comercializado (USD)", totalVolume.toFixed(2)],
-      ["Precio promedio de producto (USD)", avgPrice.toFixed(2)],
-      ["Ingresos por promociones (USD)", promoRevenue.toFixed(2)],
+      ["Volumen comercializado (S/)", totalVolume.toFixed(2)],
+      ["Precio promedio de producto (S/)", avgPrice.toFixed(2)],
+      ["Ingresos por promociones (S/)", promoRevenue.toFixed(2)],
       ["Disputas resueltas", resolvedDisputes],
       ["Reportes de conducta totales", totalConductReports],
       [],
       ["Vendedores Destacados", "Rating", "Productos"],
       ...topSellers.map((s) => [s.name, s.rating, s.productsCount]),
       [],
-      ["Compradores Frecuentes", "Compras", "Gasto Total (USD)"],
+      ["Compradores Frecuentes", "Compras", "Gasto Total (S/)"],
       ...topBuyers.map((b) => [b.name, b.purchasesCount, b.totalSpent]),
     ];
-    downloadCsv(`reporte-Rantimarket-${timeFilter.toLowerCase()}.csv`, rows);
+    downloadCsv(`reporte-Ranti-${timeFilter.toLowerCase()}.csv`, rows);
     onShowNotification("Reporte CSV descargado correctamente.", "success");
   };
 
@@ -210,21 +211,21 @@ export default function ReportsTab({
             <TrendingUp className="h-4 w-4 text-emerald-500" />
             <span>VOLUMEN COMERCIALIZADO</span>
           </div>
-          <h4 className="text-xl font-bold font-mono mt-1.5">${totalVolume.toFixed(2)} USD</h4>
+          <h4 className="text-xl font-bold font-mono mt-1.5">{formatCurrency(totalVolume)}</h4>
         </div>
         <div className={`p-4 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-slate-100"}`}>
           <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold">
             <DollarSign className="h-4 w-4 text-indigo-400" />
             <span>PRECIO PROMEDIO</span>
           </div>
-          <h4 className="text-xl font-bold font-mono mt-1.5">${avgPrice.toFixed(2)} USD</h4>
+          <h4 className="text-xl font-bold font-mono mt-1.5">{formatCurrency(avgPrice)}</h4>
         </div>
         <div className={`p-4 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-slate-100"}`}>
           <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold">
             <Award className="h-4 w-4 text-amber-500" />
             <span>INGRESOS POR PROMOCIÓN</span>
           </div>
-          <h4 className="text-xl font-bold font-mono mt-1.5">${promoRevenue.toFixed(2)} USD</h4>
+          <h4 className="text-xl font-bold font-mono mt-1.5">{formatCurrency(promoRevenue)}</h4>
         </div>
         <div className={`p-4 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-slate-100"}`}>
           <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold">
@@ -251,7 +252,7 @@ export default function ReportsTab({
                 <div
                   className="w-full rounded-t-lg bg-gradient-to-t from-indigo-600 to-indigo-400"
                   style={{ height: `${Math.max((d.value / maxVolume) * 100, 4)}%` }}
-                  title={`$${d.value.toLocaleString()}`}
+                  title={formatCurrency(d.value)}
                 />
                 <span className={`text-[10px] font-semibold ${darkMode ? "text-slate-400" : "text-slate-500"}`}>{d.label}</span>
               </div>
@@ -319,7 +320,7 @@ export default function ReportsTab({
                 </div>
                 <div className="flex items-center gap-3 text-xs">
                   <span className="text-slate-400">{b.purchasesCount} compras</span>
-                  <span className="font-bold font-mono text-emerald-500">${b.totalSpent}</span>
+                  <span className="font-bold font-mono text-emerald-500">{formatCurrency(b.totalSpent)}</span>
                 </div>
               </div>
             ))}

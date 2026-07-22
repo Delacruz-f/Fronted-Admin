@@ -9,6 +9,7 @@ import {
   FileText, Truck, MapPin, KeyRound, ShieldAlert, Pencil
 } from "lucide-react";
 import { Seller, Buyer, Carrier, AdminUser } from "@/lib/mockData";
+import { formatCurrency } from "@/lib/format";
 
 interface UsersTabProps {
   darkMode: boolean;
@@ -441,7 +442,7 @@ export default function UsersTab({
                       </td>
                       <td className="p-4">
                         <span className="font-bold">{buyer.purchasesCount}</span> compras
-                        <span className="block text-[10px] text-slate-400">Gasto: ${buyer.totalSpent} USD</span>
+                        <span className="block text-[10px] text-slate-400">Gasto: {formatCurrency(buyer.totalSpent)}</span>
                       </td>
                       <td className="p-4">
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${

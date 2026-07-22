@@ -89,33 +89,33 @@ export default function ConfigTab({
             </div>
 
             <div>
-              <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Costo Producto Patrocinado ($ USD/semana)</label>
+              <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Costo Producto Patrocinado (S/ por semana)</label>
               <div className="relative">
                 <input
                   type="number"
                   value={sponsoredCost}
                   onChange={(e) => setSponsoredCost(Number(e.target.value))}
-                  className={`w-full p-2.5 pl-8 text-xs rounded-xl border focus:outline-none font-bold ${
+                  className={`w-full p-2.5 pl-9 text-xs rounded-xl border focus:outline-none font-bold ${
                     darkMode ? "bg-slate-950 border-slate-800 text-white" : "bg-white border-slate-200 text-slate-900"
                   }`}
                 />
-                <span className="absolute left-3 top-3 text-[10px] font-bold text-slate-400">$</span>
+                <span className="absolute left-3 top-3 text-[10px] font-bold text-slate-400">S/</span>
               </div>
               <span className="text-[9px] text-slate-400 block mt-1">Costo básico para búsquedas prioritarias.</span>
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Costo Banner Promocional Principal ($ USD/semana)</label>
+              <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Costo Banner Promocional Principal (S/ por semana)</label>
               <div className="relative">
                 <input
                   type="number"
                   value={bannerCost}
                   onChange={(e) => setBannerCost(Number(e.target.value))}
-                  className={`w-full p-2.5 pl-8 text-xs rounded-xl border focus:outline-none font-bold ${
+                  className={`w-full p-2.5 pl-9 text-xs rounded-xl border focus:outline-none font-bold ${
                     darkMode ? "bg-slate-950 border-slate-800 text-white" : "bg-white border-slate-200 text-slate-900"
                   }`}
                 />
-                <span className="absolute left-3 top-3 text-[10px] font-bold text-slate-400">$</span>
+                <span className="absolute left-3 top-3 text-[10px] font-bold text-slate-400">S/</span>
               </div>
               <span className="text-[9px] text-slate-400 block mt-1">Visibilidad completa en portada de compradores.</span>
             </div>

@@ -8,6 +8,7 @@ import {
   AlertTriangle, ShieldCheck, Check, Ban, FileText, ArrowRight, X
 } from "lucide-react";
 import { Order } from "@/lib/mockData";
+import { formatCurrency } from "@/lib/format";
 
 interface OrdersTabProps {
   darkMode: boolean;
@@ -200,7 +201,7 @@ export default function OrdersTab({
 
                     {/* Amount */}
                     <td className="p-4 font-bold font-mono text-slate-700 dark:text-slate-300">
-                      ${order.amount.toFixed(2)} USD
+                      {formatCurrency(order.amount)}
                     </td>
 
                     {/* Status */}
