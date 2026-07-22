@@ -8,6 +8,7 @@ import {
   X, Filter, Trash2, ShieldAlert, Sparkles, AlertCircle
 } from "lucide-react";
 import { Product } from "@/lib/mockData";
+import { formatCurrency } from "@/lib/format";
 
 interface ProductsTabProps {
   darkMode: boolean;
@@ -160,7 +161,7 @@ export default function ProductsTab({
 
                     {/* Price / Stock */}
                     <td className="p-4">
-                      <div className="font-mono font-bold text-emerald-500">${p.price.toFixed(2)} USD</div>
+                      <div className="font-mono font-bold text-emerald-500">{formatCurrency(p.price)}</div>
                       <div className={`text-[10px] ${p.stock === 0 ? "text-rose-500 font-bold" : "text-slate-400"}`}>
                         {p.stock === 0 ? "Agotado" : `${p.stock} unidades`}
                       </div>

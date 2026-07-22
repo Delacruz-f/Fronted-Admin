@@ -7,6 +7,8 @@ import {
   Users, ShoppingBag, TrendingUp, AlertTriangle, ShieldAlert, DollarSign, 
   Package, Truck, ArrowUpRight, CheckCircle2, ChevronRight, Clock
 } from "lucide-react";
+import { motion } from "motion/react";
+import { formatCurrency, formatCurrencyCompact } from "@/lib/format";
 
 interface DashboardTabProps {
   darkMode: boolean;
@@ -68,10 +70,10 @@ export default function DashboardTab({
 
   // Category Distribution
   const categoryData = [
-    { name: "Frutas y Verduras", percent: 35, color: "#10b981", val: "$5,211" },
-    { name: "Tecnología", percent: 28, color: "#3b82f6", val: "$4,169" },
-    { name: "Hogar y Muebles", percent: 20, color: "#f59e0b", val: "$2,978" },
-    { name: "Ropa y Calzado", percent: 17, color: "#8b5cf6", val: "$2,532" },
+    { name: "Frutas y Verduras", percent: 35, color: "#10b981", val: 5211 },
+    { name: "Tecnología", percent: 28, color: "#3b82f6", val: 4169 },
+    { name: "Hogar y Muebles", percent: 20, color: "#f59e0b", val: 2978 },
+    { name: "Ropa y Calzado", percent: 17, color: "#8b5cf6", val: 2532 },
   ];
 
   const recentActivities = [
@@ -87,12 +89,12 @@ export default function DashboardTab({
       {/* Welcome Hero / Quick Overview */}
       <div className={`p-6 rounded-2xl border transition-all ${
         darkMode 
-       ? "bg-slate-900 border-slate-800"
-    : "bg-white border-slate-100"
+          ? "bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/20 border-slate-800" 
+          : "bg-gradient-to-r from-white via-white to-indigo-50/30 border-slate-100"
       }`}>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Panel Administrativo RantiAdmin</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Panel Administrativo Ranti</h1>
             <p className={`mt-1 text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
               Monitoreo general de seguridad, moderación y crecimiento de la plataforma en tiempo real.
             </p>
@@ -184,7 +186,7 @@ export default function DashboardTab({
             <p className={`text-xs font-medium uppercase tracking-wider ${darkMode ? "text-slate-400" : "text-slate-400"}`}>
               Ingresos por Promoción
             </p>
-            <h3 className="text-2xl font-semibold mt-1">$14,890 USD</h3>
+            <h3 className="text-2xl font-semibold mt-1">{formatCurrency(14890)}</h3>
             <div className="flex items-center gap-1.5 mt-2 text-xs text-slate-500">
               <span>Publicidad, destacados y banners</span>
             </div>
@@ -388,11 +390,11 @@ export default function DashboardTab({
                 <div className="border-l border-slate-800 pl-3">
                   <span className="text-emerald-500 block font-semibold flex items-center gap-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                    Ventas: ${currentGrowthData[hoveredDataIndex].ventas.toLocaleString()}
+                    Ventas: {formatCurrency(currentGrowthData[hoveredDataIndex].ventas)}
                   </span>
                   <span className="text-indigo-400 block font-semibold flex items-center gap-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                    Promociones: ${currentGrowthData[hoveredDataIndex].promociones.toLocaleString()}
+                    Promociones: {formatCurrency(currentGrowthData[hoveredDataIndex].promociones)}
                   </span>
                 </div>
               </div>
@@ -438,7 +440,7 @@ export default function DashboardTab({
               {/* Inner Circle Label */}
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
                 <span className={`text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Total Estimado</span>
-                <span className="text-xl font-bold font-mono">$14.8k</span>
+                <span className="text-xl font-bold font-mono">{formatCurrencyCompact(14800)}</span>
               </div>
             </div>
 
@@ -452,7 +454,7 @@ export default function DashboardTab({
                   </div>
                   <div className="flex items-center gap-3 font-mono font-medium">
                     <span className={darkMode ? "text-slate-400" : "text-slate-500"}>{cat.percent}%</span>
-                    <span className="font-semibold">{cat.val}</span>
+                    <span className="font-semibold">{formatCurrency(cat.val)}</span>
                   </div>
                 </div>
               ))}

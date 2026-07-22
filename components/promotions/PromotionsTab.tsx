@@ -8,6 +8,7 @@ import {
   Award, Target, Image, MapPin, Eye, Search, AlertCircle
 } from "lucide-react";
 import { Promotion } from "@/lib/mockData";
+import { formatCurrency } from "@/lib/format";
 
 interface PromotionsTabProps {
   darkMode: boolean;
@@ -107,7 +108,7 @@ export default function PromotionsTab({
             <DollarSign className="h-4 w-4 text-amber-500" />
             <span>INGRESOS HISTÓRICOS SAAS</span>
           </div>
-          <h4 className="text-xl font-bold font-mono mt-1.5">${totalRevenue.toFixed(2)} USD</h4>
+          <h4 className="text-xl font-bold font-mono mt-1.5">{formatCurrency(totalRevenue)}</h4>
           <span className="text-[10px] text-slate-400 font-medium">Facturación acumulada por patrocinio</span>
         </div>
 
@@ -125,7 +126,7 @@ export default function PromotionsTab({
             <Target className="h-4 w-4 text-emerald-500" />
             <span>TARIFA PROMEDIO</span>
           </div>
-          <h4 className="text-xl font-bold font-mono mt-1.5">$135.00 USD</h4>
+          <h4 className="text-xl font-bold font-mono mt-1.5">{formatCurrency(135)}</h4>
           <span className="text-[10px] text-slate-400 font-medium">Costo de adquisición promedio por banner</span>
         </div>
       </div>
@@ -192,7 +193,7 @@ export default function PromotionsTab({
               />
             </div>
             <div>
-              <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Monto Pagado ($ USD)</label>
+              <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Monto Pagado (S/)</label>
               <input
                 type="number"
                 value={newPromoAmount}
@@ -309,7 +310,7 @@ export default function PromotionsTab({
 
                     {/* Paid */}
                     <td className="p-4 font-bold font-mono text-emerald-500">
-                      ${promo.amountPaid.toFixed(2)} USD
+                      {formatCurrency(promo.amountPaid)}
                     </td>
 
                     {/* Status */}
