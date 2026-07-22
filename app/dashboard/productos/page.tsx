@@ -1,6 +1,5 @@
 "use client";
 
-// app/dashboard/productos/page.tsx — Propiedad: Persona C
 
 import React, { useState } from "react";
 import ProductsTab from "@/components/products/ProductsTab";

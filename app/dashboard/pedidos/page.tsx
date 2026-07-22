@@ -1,6 +1,6 @@
 "use client";
 
-// app/dashboard/pedidos/page.tsx — Propiedad: Persona C
+
 
 import React, { useState } from "react";
 import OrdersTab from "@/components/orders/OrdersTab";
